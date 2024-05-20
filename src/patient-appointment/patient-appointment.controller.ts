@@ -1,10 +1,12 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Post, UseGuards} from '@nestjs/common';
 import {ApiBody, ApiOperation, ApiTags} from "@nestjs/swagger";
 import {Appointment, Prisma} from "@prisma/client";
 import {PatientAppointmentCreateDto} from "./dto/patient-appointment-create-dto.model";
 import {PatientAppointmentService} from "./patient-appointment.service";
+import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags('patient-appointment')
+@UseGuards(AuthGuard)
 @Controller('patient-appointment')
 export class PatientAppointmentController {
     constructor(private patientAppointmentService: PatientAppointmentService) {

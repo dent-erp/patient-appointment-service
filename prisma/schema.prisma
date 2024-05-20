@@ -26,7 +26,7 @@ model Appointment {
   end_date   DateTime
   type       String
   patient_id Int
-  patient    Patient  @relation(fields: [patient_id], references: [id])
+  patient    Patient  @relation(fields: [patient_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([id], name: "appointment_id_index")
 }

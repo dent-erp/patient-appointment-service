@@ -1,4 +1,4 @@
-import { HttpException, Injectable, Logger} from '@nestjs/common';
+import {HttpException, Injectable, Logger} from '@nestjs/common';
 import {PrismaService} from "../prisma.service";
 import {Appointment, Patient, Prisma} from "@prisma/client";
 import {PatientValidationService} from "./patient-validation.service";
@@ -78,6 +78,9 @@ export class PatientService {
         return this.prisma.patient.delete({
             where: {
                 id: Number(id)
+            },
+            include: {
+                appointments: true
             }
         });
     }
