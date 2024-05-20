@@ -31,7 +31,7 @@ export class AppointmentService {
 
     public async update(id: number, appointment: Prisma.AppointmentUpdateInput): Promise<Appointment> {
         await this.findById(id);
-
+        await this.appointmentValidationService.validateUpdateAppointment(appointment);
         return this.prismaService.appointment.update({
             where: {
                 id: Number(id)

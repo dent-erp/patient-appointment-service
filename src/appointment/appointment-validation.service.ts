@@ -14,6 +14,10 @@ export class AppointmentValidationService {
         );
     }
 
+    public async validateUpdateAppointment(appointment: Prisma.AppointmentUpdateInput): Promise<void> {
+       //TODO: implement
+    }
+
     private checkStartTimeBeforeEndTime(startTime: Date, endTime: Date): void {
         if (startTime >= endTime) {
             throw new HttpException('Start time must be before end time', 404);
