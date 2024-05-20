@@ -14,7 +14,7 @@ model Patient {
   date_of_birth DateTime
   email         String        @unique
   phone_number  String?       @unique
-  Appointment   Appointment[]
+  appointments  Appointment[]
 
   @@index([id], name: "patient_id_index")
   @@index([email], name: "email_index")

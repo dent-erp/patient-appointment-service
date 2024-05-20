@@ -3,6 +3,7 @@ import {PatientService} from "./patient.service";
 import {Patient, Prisma} from "@prisma/client";
 import {ApiBody, ApiQuery, ApiTags} from "@nestjs/swagger";
 import {PatientCreateDto} from "./dto/patient-create-dto.model";
+import {AppointmentCreateDto} from "../appointment/dto/appointment-create-dto.model";
 
 @ApiTags('patients')
 @Controller('patients')
@@ -46,5 +47,17 @@ export class PatientController {
     @Delete(':id')
     delete(@Param('id') id: number) {
         return this.patientService.delete(id);
+    }
+
+    @ApiBody({
+        description: 'Appointment creation data',
+        type: AppointmentCreateDto
+    })
+    @Post(':id/book-appointment')
+    bookAppointment(
+        @Param('id') id: number,
+        @Body() appointment: Prisma.AppointmentCreateInput
+    ) {
+        return this.patientService.bookAppointment(id, appointment);
     }
 }
