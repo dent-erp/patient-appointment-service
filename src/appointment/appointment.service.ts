@@ -12,13 +12,22 @@ export class AppointmentService {
     }
 
     public async findAll(): Promise<Appointment[]> {
-        return this.prismaService.appointment.findMany();
+        return this.prismaService.appointment.findMany(
+            {
+                include: {
+                    patient: true
+                }
+            }
+        );
     }
 
     public async findById(id: number): Promise<Appointment> {
         const existingAppointment = await this.prismaService.appointment.findUnique({
             where: {
                 id: Number(id)
+            },
+            include: {
+                patient: true
             }
         });
 
