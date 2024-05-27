@@ -7,8 +7,6 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN echo $DATABASE_URL
-
 COPY . .
 
 RUN npx prisma generate --schema=./prisma/schema.prisma
