@@ -7,9 +7,9 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN npx prisma generate --schema=./prisma/schema.prisma
-
 COPY . .
+
+RUN npx prisma generate --schema=./prisma/schema.prisma
 
 RUN npm run build
 
