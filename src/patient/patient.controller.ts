@@ -3,7 +3,7 @@ import {PatientService} from "./patient.service";
 import {Patient, Prisma} from "@prisma/client";
 import {ApiBody, ApiOperation, ApiQuery, ApiTags} from "@nestjs/swagger";
 import {PatientCreateDto} from "./dto/patient-create-dto.model";
-import {AppointmentCreateDto} from "../appointment/dto/appointment-create-dto.model";
+import {AppointmentRequestDto} from "../appointment/dto/appointment-request-dto.model";
 import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags('patients')
@@ -59,7 +59,7 @@ export class PatientController {
     @ApiOperation({ summary: 'Use for booking an appointment with an existing patient' })
     @ApiBody({
         description: 'Appointment creation data',
-        type: AppointmentCreateDto
+        type: AppointmentRequestDto
     })
     @Post(':id/book-appointment')
     bookAppointment(

@@ -1,5 +1,5 @@
 import {PatientCreateDto} from "../../patient/dto/patient-create-dto.model";
-import {AppointmentCreateDto} from "../../appointment/dto/appointment-create-dto.model";
+import {AppointmentRequestDto} from "../../appointment/dto/appointment-request-dto.model";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class PatientAppointmentCreateDto {
@@ -16,12 +16,12 @@ export class PatientAppointmentCreateDto {
     patient: PatientCreateDto;
 
     @ApiProperty({
-        type: AppointmentCreateDto,
+        type: AppointmentRequestDto,
         example: {
             start_date: '2021-01-01T00:00:00.000Z',
             end_date: '2021-01-01T00:30:00.000Z',
             type: 'Checkup'
         }
     })
-    appointment: AppointmentCreateDto;
+    appointment: AppointmentRequestDto;
 }

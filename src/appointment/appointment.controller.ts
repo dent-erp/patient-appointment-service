@@ -1,8 +1,8 @@
-import {Body, Controller, Delete, Get, Param, Put, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put, UseGuards} from '@nestjs/common';
 import {Appointment, Prisma} from "@prisma/client";
 import {AppointmentService} from "./appointment.service";
 import {ApiBody, ApiOperation, ApiTags} from "@nestjs/swagger";
-import {AppointmentCreateDto} from "./dto/appointment-create-dto.model";
+import {AppointmentRequestDto} from "./dto/appointment-request-dto.model";
 import {AuthGuard} from "../auth/auth.guard";
 
 @ApiTags('appointments')
@@ -26,13 +26,23 @@ export class AppointmentController {
 
     @ApiOperation({ summary: 'Use for creating a new appointment' })
     @ApiBody({
+        description: 'Appointment creation data',
+        type: AppointmentRequestDto
+    })
+    @Post()
+    post(@Body() appointment: AppointmentRequestDto): Promise<Appointment> {
+        return this.appointmentService.create(appointment);
+    }
+
+    @ApiOperation({ summary: 'Use for creating a new appointment' })
+    @ApiBody({
         description: 'Appointment update data',
-        type: AppointmentCreateDto
+        type: AppointmentRequestDto
     })
     @Put(':id')
     update(
         @Param('id') id: number,
-        @Body() appointment: Prisma.AppointmentUpdateInput
+        @Body() appointment: AppointmentRequestDto
     ): Promise<Appointment> {
         return this.appointmentService.update(id, appointment);
     }

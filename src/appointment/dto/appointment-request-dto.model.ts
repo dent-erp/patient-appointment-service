@@ -1,6 +1,6 @@
 import {ApiProperty} from "@nestjs/swagger";
 
-export class AppointmentCreateDto {
+export class AppointmentRequestDto {
     @ApiProperty({example: '2000-01-01T00:00:00.000Z', format: 'date-time'})
     start_date: Date;
 
@@ -9,4 +9,7 @@ export class AppointmentCreateDto {
 
     @ApiProperty({example: 'Examination'})
     type: string;
+
+    @ApiProperty({example: '1'})
+    patient_id: number;
 }

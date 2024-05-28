@@ -43,6 +43,9 @@ export class PatientValidationService {
     }
 
     private async checkPhoneNumberFormat(phoneNumber: string): Promise<void> {
+        if (!phoneNumber) {
+            return;
+        }
         const phoneRegex =  /^0\d{2} ?\d{3} ?\d{3}$/;
         if (!phoneRegex.test(phoneNumber)) {
             throw new HttpException('Invalid phone number format!', 400);
@@ -50,6 +53,9 @@ export class PatientValidationService {
     }
 
     private async checkPhoneNumberUnique(phoneNumber: string): Promise<void> {
+        if (!phoneNumber) {
+            return;
+        }
         const existingPatient = await this.prisma.patient.findUnique({
             where: { phone_number: phoneNumber },
         });
