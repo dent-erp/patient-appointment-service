@@ -1,9 +1,13 @@
-import {NestFactory} from '@nestjs/core';
+import {HttpAdapterHost, NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
+import {LoggingExceptionFilter} from "./logger/logging-exception.filter";
+import {LoggerModule} from "./logger/logger.module";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+    const loggingExceptionFilter = app.select(LoggerModule).get(LoggingExceptionFilter);
+
     app.setGlobalPrefix('api')
 
     const config = new DocumentBuilder()
@@ -14,6 +18,8 @@ async function bootstrap() {
 
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document)
+
+    app.useGlobalFilters(loggingExceptionFilter);
 
     await app.listen(3000);
 }

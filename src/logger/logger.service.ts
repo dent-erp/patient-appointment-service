@@ -3,6 +3,8 @@ import * as winston from 'winston';
 import * as path from 'path';
 import * as fs from 'fs';
 import {format} from "date-fns";
+import {readFileSync} from 'fs';
+import {join} from 'path';
 
 @Injectable()
 export class LoggerService {
@@ -43,5 +45,14 @@ export class LoggerService {
 
   error(message: string, context: string = '') {
     this.logger.error(`${context} ${message}`);
+  }
+
+  getLogFile(date: string): string {
+    const filePath = join(__dirname, '../../logs', `${date}.log`);
+    return readFileSync(filePath, 'utf-8');
+  }
+
+  getLogFilePath(date: string): string {
+    return join(__dirname, '../../logs', `${date}.log`);
   }
 }
