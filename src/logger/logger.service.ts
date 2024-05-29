@@ -55,4 +55,8 @@ export class LoggerService {
   getLogFilePath(date: string): string {
     return join(__dirname, '../../logs', `${date}.log`);
   }
+
+  getLogFileNames() {
+    return fs.readdirSync(join(__dirname, '../../logs'));
+  }
 }

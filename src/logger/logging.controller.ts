@@ -22,4 +22,10 @@ export class LoggingController {
         const filePath = this.loggerService.getLogFilePath(date);
         res.download(filePath);
     }
+
+    @ApiOperation({summary: 'Get all log file names'})
+    @Get('log-file-names')
+    async getLogFiles() {
+        return this.loggerService.getLogFileNames();
+    }
 }
