@@ -51,7 +51,7 @@ export class AppointmentService {
         }
 
         await this.appointmentValidationService.validateUpdateAppointment(appointment);
-        return this.prismaService.appointment.update({
+        const updatedAppointmt = await this.prismaService.appointment.update({
             where: {
                 id: Number(id)
             },
@@ -64,6 +64,15 @@ export class AppointmentService {
                         id: appointment.patient_id
                     }
                 }
+            }
+        });
+
+        return this.prismaService.appointment.findUnique({
+            where: {
+                id: updatedAppointmt.id
+            },
+            include: {
+                patient: true
             }
         });
     }
@@ -88,7 +97,7 @@ export class AppointmentService {
             throw new HttpException(`Patient with id ${appointment.patient_id} not found`, 404);
         }
 
-        return this.prismaService.appointment.create({
+        const new_appointment = await this.prismaService.appointment.create({
             data: {
                 start_date: appointment.start_date,
                 end_date: appointment.end_date,
@@ -99,6 +108,15 @@ export class AppointmentService {
                     }
                 }
             },
+        });
+
+        return this.prismaService.appointment.findUnique({
+            where: {
+                id: new_appointment.id
+            },
+            include: {
+                patient: true
+            }
         });
     }
 }
