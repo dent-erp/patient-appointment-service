@@ -8,6 +8,12 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const loggingExceptionFilter = app.select(LoggerModule).get(LoggingExceptionFilter);
 
+    app.enableCors({
+        origin: '*',
+        methods: 'GET,POST,PUT,DELETE',
+        allowedHeaders: 'Content-Type,Authorization',
+    });
+
     app.setGlobalPrefix('api')
 
     const config = new DocumentBuilder()
